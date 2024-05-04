@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import {useState} from 'react'
+import {useState , useEffect} from 'react'
 import { SafeAreaView, StyleSheet, Text, View, Platform , TouchableOpacity } from "react-native";
 import Header from "./Components/Header";
+import Timer from "./Components/Timer";
 
 export default function App() {
   const colors = ['#F7DC6F' , '#A2D9CE' , '#D7BDE2']
@@ -23,8 +24,9 @@ export default function App() {
         <Text style={styles.texto}>Hi Mom</Text>
         <StatusBar style="auto" />
         <Header currentTime={currentTime} setCurrentTime={setCurrentTime}setTime={setTime} isActive={isActive} setIsActive={setIsActive} />
+        <Timer time={time}/>
         <TouchableOpacity  style={styles.button} >
-          <Text style={{color: 'white' , fontWeight: 'bold'}}>Press here</Text>
+          <Text style={{color: 'white' , fontWeight: 'bold'}}>{isActive ? "STOP" : "START"}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
