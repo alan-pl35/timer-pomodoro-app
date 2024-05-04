@@ -4,12 +4,30 @@ import { SafeAreaView, StyleSheet, Text, View, Platform , TouchableOpacity } fro
 import Header from "./Components/Header";
 import Timer from "./Components/Timer";
 
+import {Audio} from 'expo-av'
 export default function App() {
   const colors = ['#F7DC6F' , '#A2D9CE' , '#D7BDE2']
   const [isWorking , setIsWorking] = useState(false);
   const [time , setTime] = useState(25*60);
   const [currentTime , setCurrentTime] = useState('POMODORO' | 'SHORT' | 'BREAK')
   const [isActive , setIsActive] = useState(false);
+
+  const handleStartStop = () =>{
+    playSound()
+    //se modifica en status del processo
+    setIsActive(!isActive);
+
+  }
+
+ //integrando tono} 
+ const playSound = async() =>{
+  const {sound}  = await  Audio.Sound.createAsync(
+    require('./assets/mouse-click.mp3')
+  )
+
+  await sound.playAsync();
+ } 
+
   return (
     <SafeAreaView style={[styles.container , {backgroundColor: colors[currentTime]}]}>
       <View
@@ -23,9 +41,9 @@ export default function App() {
       >
         <Text style={styles.texto}>Hi Mom</Text>
         <StatusBar style="auto" />
-        <Header currentTime={currentTime} setCurrentTime={setCurrentTime}setTime={setTime} isActive={isActive} setIsActive={setIsActive} />
+        <Header currentTime={currentTime} setCurrentTime={setCurrentTime}setTime={setTime} isActive={isActive}  />
         <Timer time={time}/>
-        <TouchableOpacity  style={styles.button} >
+        <TouchableOpacity onPress={()=> handleStartStop()}  style={styles.button} >
           <Text style={{color: 'white' , fontWeight: 'bold'}}>{isActive ? "STOP" : "START"}</Text>
         </TouchableOpacity>
       </View>
