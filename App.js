@@ -1,9 +1,16 @@
 import { StatusBar } from "expo-status-bar";
+import {useState} from 'react'
 import { SafeAreaView, StyleSheet, Text, View, Platform , TouchableOpacity } from "react-native";
+import Header from "./Components/Header";
 
 export default function App() {
+  const colors = ['#F7DC6F' , '#A2D9CE' , '#D7BDE2']
+  const [isWorking , setIsWorking] = useState(false);
+  const [time , setTime] = useState(25*60);
+  const [currentTime , setCurrentTime] = useState('POMODORO' | 'SHORT' | 'BREAK')
+  const [isActive , setIsActive] = useState(false);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={[styles.container , {backgroundColor: colors[currentTime]}]}>
       <View
         style={{
           borderWidth: 6,
@@ -15,6 +22,7 @@ export default function App() {
       >
         <Text style={styles.texto}>Hi Mom</Text>
         <StatusBar style="auto" />
+        <Header currentTime={currentTime} setCurrentTime={setCurrentTime}setTime={setTime} isActive={isActive} setIsActive={setIsActive} />
         <TouchableOpacity  style={styles.button} >
           <Text style={{color: 'white' , fontWeight: 'bold'}}>Press here</Text>
         </TouchableOpacity>
